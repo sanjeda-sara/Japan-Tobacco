@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OCR Result</title>
+</head>
+<body>
+    <h1>OCR Result</h1>
+    <p>Image received: {{ file_name }}</p>
+   
+    <h2>OCR Result:</h2>
+    {% for detection in ocr_result %}
+      <p> {{ detection[1] }}<p>
+    {% endfor %}
+</body>
+</html>

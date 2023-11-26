@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Updates</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #f4f4f4;
+        }
+ 
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+ 
+        .logo {
+            width: 70px; /* Adjust the size of the logo */
+            height: auto;
+        }
+ 
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+ 
+        /* Make the card group wider for better visibility */
+        .card-group {
+            max-width: 900px;
+        }
+ 
+        .card {
+            margin: 20px;
+            padding: 30px; /* Increase padding for bigger size */
+            font-size: 18px; /* Increase font size for better readability */
+            border-radius: 10px;
+        }
+ 
+        /* Adjust font size specifically for the card text */
+        .card .card-text {
+            font-size: 60px; /* Adjust the font size as needed */
+        }
+ 
+        .card .card-title {
+            font-size: 25px; /* Adjust the font size as needed */
+        }
+    </style>
+</head>
+<body>
+ 
+<nav class="navbar" style="background-color: #dedede;">
+    <a class="navbar-brand" href="#">
+        <img src="https://www.jti.com/themes/investis_bootstrap/images/jti_logo.svg" alt="" width="50px">
+    </a>
+    <h2 class="text-center text-md-" style="color:#17b486">Japan Tobacco International</h2>
+</nav>
+ 
+<div class="container-fluid">
+    <br>
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Raw Weight</h5>
+                    <p class="card-text" id="rawWeightValue">0</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Discount</h5>
+                    <p class="card-text" id="discountValue">0</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Final Weight</h5>
+                    <p class="card-text" id="finalValue">0</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+ 
+<!-- Bootstrap JS and Popper.js -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+ 
+<script>
+    var socket = io.connect('http://' + document.domain + ':' + location.port);
+ 
+    socket.on('updateRawWeight', function(data) {
+        document.getElementById('rawWeightValue').innerText = data.data;
+    });
+ 
+    socket.on('updateDiscount', function(data) {
+        document.getElementById('discountValue').innerText = data.data;
+    });
+ 
+    socket.on('updateFinalWeight', function(data) {
+        document.getElementById('finalValue').innerText = data.data;
+    });
+</script>
+</body>
+</html>
